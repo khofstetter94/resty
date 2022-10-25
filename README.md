@@ -6,4 +6,12 @@ A browser based API testing tool
 
 Our application will be an API testing tool that can be run in any browser, allowing a user to easily interact with APIs in a familiar interface.
 
-<!-- To Be filled in by you the student as we iterate thru Module 6 Labs -->
+## UML
+
+![UML](./img/UML.png)
+
+## Deloyed Site
+
+Deployed with Netlify
+
+[View deployed site](https://euphonious-pixie-3dbf30.netlify.app/)
