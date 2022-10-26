@@ -1,32 +1,57 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import './form.scss';
 
 function Form(props) {
+  const [isShown, setIsShown] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [method, setMethod] = useState('GET');
+  const [url, setUrl] = useState('');
 
   let handleSubmit = e => {
     e.preventDefault();
     const formData = {
-      method: 'GET',
-      url: 'https://pokeapi.co/api/v2/pokemon',
+      method: method,
+      url: url,
     };
+    console.log(formData);
     props.handleApiCall(formData);
   }
+
+  const handleChange = (event) => {
+    setUrl(event.target.value);
+  }
+
+  const handleShow = (event, method) => {
+    setIsShown(true);
+    setIsActive(method);
+    setMethod(method);
+  };
+
+  const handleHide = (event, method) => {
+    setIsShown(false);
+    setIsActive(method);
+    setMethod(method);
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <label >
           <span>URL: </span>
-          <input name='url' type='text' />
+          <input name='url' data-testid="url-input" type='text' onChange={handleChange}/>
           <button type="submit">GO!</button>
         </label>
         <label className="methods">
-          <span id="get">GET</span>
-          <span id="post">POST</span>
-          <span id="put">PUT</span>
-          <span id="delete">DELETE</span>
+          <button id="get" type="button" style={{backgroundColor: isActive === 'GET' ? 'red' : ''}} onClick={e => handleHide(e, 'GET')}>GET</button>
+          <button id="post" type="button" style={{backgroundColor: isActive === 'POST' ? 'red' : ''}} onClick={e => handleShow(e, 'POST')}>POST</button>
+          <button id="put" type="button" style={{backgroundColor: isActive === 'PUT' ? 'red' : ''}} onClick={e => handleShow(e, 'PUT')}>PUT</button>
+          <button id="delete" type="button" style={{backgroundColor: isActive === 'DELETE' ? 'red' : ''}} onClick={e => handleHide(e, 'DELETE')}>DELETE</button>
         </label>
+        {isShown && (
+          <div>
+            <textarea id="textarea" />
+          </div>
+        )}
       </form>
     </>
   );
