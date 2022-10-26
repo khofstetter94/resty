@@ -14,4 +14,4 @@ Our application will be an API testing tool that can be run in any browser, allo
 
 Deployed with Netlify
 
-[View deployed site](https://euphonious-pixie-3dbf30.netlify.app/)
+[View deployed site](https://sage-rabanadas-a95b96.netlify.app/)
