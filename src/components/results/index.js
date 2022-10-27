@@ -1,11 +1,15 @@
 import './results.scss';
+import JSONPretty from 'react-json-pretty';
+import JSONPrettyMon from 'react-json-pretty/themes/monikai.css';
 
 function Results(props) {
-
   return (
-    <section>
-      <pre>RESPONSE: {props.data ? JSON.stringify(props.data, undefined, 2) : null}</pre>
-    </section>
+    <>
+      <h3>Reponse: </h3>
+      <section data-testid='results'>
+        <JSONPretty id="json-pretty" data={props.data ? JSON.stringify(props.data, undefined, 2) : null} theme={JSONPrettyMon}></JSONPretty>
+      </section>
+    </>
   );
 }
 
