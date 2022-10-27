@@ -6,12 +6,14 @@ function Form(props) {
   const [isActive, setIsActive] = useState(false);
   const [method, setMethod] = useState('GET');
   const [url, setUrl] = useState('');
+  const [body, setBody] = useState('');
 
   let handleSubmit = e => {
     e.preventDefault();
     const formData = {
       method: method,
       url: url,
+      body: body,
     };
     console.log(formData);
     props.handleApiCall(formData);
@@ -19,6 +21,10 @@ function Form(props) {
 
   const handleChange = (event) => {
     setUrl(event.target.value);
+  }
+
+  const handleTextArea = (event) => {
+    setBody(event.target.value);
   }
 
   const handleShow = (event, method) => {
@@ -35,7 +41,7 @@ function Form(props) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form data-testid="form" onSubmit={handleSubmit}>
         <label >
           <span>URL: </span>
           <input name='url' data-testid="url-input" type='text' onChange={handleChange}/>
@@ -49,7 +55,7 @@ function Form(props) {
         </label>
         {isShown && (
           <div>
-            <textarea id="textarea" />
+            <textarea id="textarea" data-testid="body-input" onChange={handleTextArea}/>
           </div>
         )}
       </form>
