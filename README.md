@@ -57,4 +57,4 @@ The core requirements and functionality are as follows:
 
 Deployed with Netlify
 
-[View deployed site](https://sage-rabanadas-a95b96.netlify.app/)
+[View deployed site](https://darling-pie-588a6f.netlify.app/)
