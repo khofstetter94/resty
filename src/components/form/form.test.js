@@ -36,6 +36,6 @@ describe('Form Component', () => {
     fireEvent.click(getButton);
     fireEvent.click(goButton);
 
-    expect(spy).toBeCalledWith({ method: 'GET', url: testUrl, body: testBody });
+    expect(spy).toBeCalledWith({ method: "", url: testUrl, body: testBody });
   })
 });
