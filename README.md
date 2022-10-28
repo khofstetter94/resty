@@ -6,7 +6,7 @@
 
 ### Problem Domain
 
-Our application will be an API testing tool that can be run in any browser, allowing a user to easily interact with APIs in a familiar interface.
+Our application will be an API testing tool that can be run in any browser, allowing a user to easily interact with APIs in a familiar interface. A history section will appear with all previously called API calls, and the user can click on a call and recieve the data that was retrieved when that call was made.
 
 ### Business Requirements
 
@@ -20,6 +20,9 @@ The core requirements and functionality are as follows:
     - Selects the REST Method to use (get, post, put, delete)
     - For put and post, allow the user to enter JSON to be used as the body for the request
     - A button to initiate the request
+  - A history section which:
+    - Shows a list of all unique, successful requests
+    - Allows a user to click or select one to re-populate the form so they can repeat the request
 
 ### Technical Requirements
 

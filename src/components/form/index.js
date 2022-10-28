@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import './form.scss';
+import { reducer, initialState } from '../../reducer';
 
 function Form(props) {
   const [isShown, setIsShown] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [method, setMethod] = useState('GET');
-  const [url, setUrl] = useState('');
-  const [body, setBody] = useState('');
+  let [state, dispatch] = useReducer(reducer, initialState);
+
+  const { method, url, body } = state.requestParams;
 
   let handleSubmit = e => {
     e.preventDefault();
@@ -20,23 +21,35 @@ function Form(props) {
   }
 
   const handleChange = (event) => {
-    setUrl(event.target.value);
+    dispatch({ type: 'REQ_PARAMS_ADD', payload: {
+      ...state.requestParams,
+      url: event.target.value,
+    }});
   }
 
   const handleTextArea = (event) => {
-    setBody(event.target.value);
+    dispatch({ type: 'REQ_PARAMS_ADD', payload: {
+      ...state.requestParams,
+      body: event.target.value,
+    }});
   }
 
   const handleShow = (event, method) => {
+    dispatch({ type: 'REQ_PARAMS_ADD', payload: {
+      ...state.requestParams,
+      method: event.target.value,
+    }});
     setIsShown(true);
     setIsActive(method);
-    setMethod(method);
   };
 
   const handleHide = (event, method) => {
+    dispatch({ type: 'REQ_PARAMS_ADD', payload: {
+      ...state.requestParams,
+      method: event.target.value,
+    }});
     setIsShown(false);
     setIsActive(method);
-    setMethod(method);
   };
 
   return (

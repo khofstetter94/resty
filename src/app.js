@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
-//const axios = () => null;
 import './app.scss';
 
-// Let's talk about using index.js and some other name in the component folder
-// There's pros and cons for each way of doing this ...
 import Header from './components/header';
 import Footer from './components/footer';
 import Form from './components/form';
 import Results from './components/results';
+import History from './components/history';
+import { reducer, initialState } from './reducer';
 
 const App = () => {
-  const [requestParams, setRequestParams] = useState({});
-  const [data, setData] = useState(null);
+  let [state, dispatch] = useReducer(reducer, initialState);
+
+  const { requestParams, data, apiHistory } = state;
 
   const callApi = (requestParams) => {
-    // mock output
-    const data = {
-      method: requestParams.method,
-      url: requestParams.url,
-      body: requestParams.body,
-    };
-    console.log(data);
-    setRequestParams(requestParams);
-    setData(data);
+    dispatch({ type: 'REQ_PARAMS_ADD', payload: requestParams });
   };
 
   useEffect(() => {
@@ -31,7 +23,8 @@ const App = () => {
     async function apiCall() {
       let results = await axios.get(requestParams.url);
       console.log(results);
-      setData(results.data.results)
+      dispatch({ type: 'DATA_ADD', payload: results.data.results })
+      dispatch({ type: 'HISTORY_ADD', payload: {url: results.data.next, method: results.config.method, data: results.data.results } })
     }
     if(requestParams.url){
       apiCall();
@@ -45,6 +38,9 @@ const App = () => {
       <div>Request Method: {requestParams.method}</div>
       <div>Request Body: {requestParams.body}</div>
       <Form handleApiCall={callApi} />
+      <aside>
+        <History history={apiHistory} dispatch={dispatch} />
+      </aside>
       <Results data={data} />
       <Footer />
     </React.Fragment>
